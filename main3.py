@@ -53,19 +53,50 @@ def save_data():
     json.dump(data,file, indent=4)
     print('Data saved')
 
+def find_organization_by_id():
+     organization_id=input('Ievadiet organizacijas ID:')
+     for organization in organizations:
+          if organization['id']==organization_id:
+               print('---ORGANIZACIJA---')
+               print(f"{organization['name']}({organization['id']})")
+               break
+
+def count_organization():
+     print(f"Kopējais organizacijas skaits: {len(organizations)}")
+
+def list_organization_ids():
+     print('Pieejamie organizaciju ID:')
+     for organization in organizations:
+          print(organization['id'])   
+
+def delete_organization_by_id():
+     d=input('Ieraksti organizacijas ID kuru jus gribat izdzēst: ')
+     for organization in organizations:
+          if organization['id']==d:
+               print(organization)
+               organizations.remove(organization)
+
 def main():
-    #load_data()
+    load_data()
+    find_organization_by_id()
+    count_organization()
+    list_organization_ids()
+    delete_organization_by_id()
     while (True):
-        response=input('(1) Add organization (2) Print organization (3) Exit')
+        response=input('(1) Add organization (2) Print organization (3)Delete organization (4) Exit')
         if response=='1':
             add_organization()         
         elif response=='2':
             print_organization()
         elif response=='3':
+            delete_organization_by_id()
+        elif response=='4':
             save_data()
             print('Bye bye!')
             exit()
         else:
             print('Choose a number between 1-3')
             continue
+
+
 main()
